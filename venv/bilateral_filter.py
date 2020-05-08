@@ -41,7 +41,7 @@ grid = (int(np.ceil(M/block[0])),int(np.ceil(N/block[1])))
 
 
 mod = compiler.SourceModule(open("kernel.cu", "r").read())
-bilinear_interpolation_kernel = mod.get_function("interpolate")
+bilateral_kernel = mod.get_function("interpolate")
 
 start = driver.Event()
 stop = driver.Event()
@@ -53,7 +53,7 @@ tex.set_address_mode(0, driver.address_mode.MIRROR)
 tex.set_address_mode(1, driver.address_mode.MIRROR)
 driver.matrix_to_texref(image.astype(np.uint32), tex, order="C")
 
-bilinear_interpolation_kernel(driver.Out(gpu_result), np.int32(M), np.int32(N), np.float32(sigma_d), np.float32(sigma_r), block=block, grid=grid, texrefs=[tex])
+bilateral_kernel(driver.Out(gpu_result), np.int32(M), np.int32(N), np.float32(sigma_d), np.float32(sigma_r), block=block, grid=grid, texrefs=[tex])
 stop.record()
 stop.synchronize()
 gpu_time = stop.time_since(start)
