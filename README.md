@@ -1,6 +1,6 @@
 # 2LabaCUDA
 
-Bilinear image filtering. Image size is MxN. PyCharm 2020 and Cuda Toolkit 10 were used for this work. 
+Image filtering. Image size is MxN. PyCharm 2020 and Cuda Toolkit 10 were used for this work. 
 
 # System configuration
 
